@@ -23,4 +23,3 @@ PC端：
    		 rosrun control_robot control.py 
    		 3_2.执行定点运行
     		 rosrun control_robot demo01.py 
-
