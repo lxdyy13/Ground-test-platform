@@ -1,0 +1,2 @@
+contorl_trutlebot3:control_robot
+-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_DEVEL_PREFIX=/home/lxd/demo01_ws/devel -DCMAKE_INSTALL_PREFIX=/home/lxd/demo01_ws/install -G Unix Makefiles

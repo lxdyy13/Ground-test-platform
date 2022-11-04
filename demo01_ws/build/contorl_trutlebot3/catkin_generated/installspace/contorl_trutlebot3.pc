@@ -1,0 +1,8 @@
+prefix=/home/lxd/demo01_ws/install
+
+Name: contorl_trutlebot3
+Description: Description of contorl_trutlebot3
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
