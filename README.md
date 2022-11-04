@@ -1,13 +1,13 @@
 # Ground-test-platform
 turtlebot3 and NOKOV joint use
 
-#使用方法
+使用方法
 机器人端：
 	通过ssh远程启动机器人，在终端使用指令：roslaunch turtlebot3_bringup turtlebot3_robot.launch
 		自己电脑需要安装ros环境 以及trutlebots相关包，使用命令：
-		$ sudo apt install ros-noetic-dynamixel-sdk
-   		$ sudo apt install ros-noetic-turtlebot3-msgs
-   		$ sudo apt install ros-noetic-turtlebot3
+		sudo apt install ros-noetic-dynamixel-sdk
+   		sudo apt install ros-noetic-turtlebot3-msgs
+   		sudo apt install ros-noetic-turtlebot3
 		
 		
 PC端：
