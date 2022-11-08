@@ -46,6 +46,8 @@ sudo apt-get install ros-<your ros vision>-vrpn*
 source ./devel/setup.bash
 ```
 
+把坐标点放入demo01.py文件里面的point数组中  
+
 启动控制命令，有两种方式
 
 控制机器人
