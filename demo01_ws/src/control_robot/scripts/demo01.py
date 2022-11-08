@@ -6,24 +6,109 @@ from geometry_msgs.msg import Twist
 from geometry_msgs.msg import PoseStamped
 import math
 
-#在这个输入点坐标 第一个为起始点
+#把坐标放入其中
 point=[
-        [-0.6,-0.9],
-        [-0.6,0.2],
-        [0.6,0.2],
-        [1.7,-0.95],
-        [0.6,-0.95],
-        [0.6,0.2],
-        [1.7,0.2],
-        [1.7,1.3],
-        [-0.6,1.3],
-        [-0.6,0.3],
-        [-0.6,-0.9],
-        [0.6,-0.9],
-        [1.7,-0.9],
-        [2.7,-0.9],
-        [2.7,1.3]
-        ]
+        [-0.8,-0.6],
+        [-0.8,0],
+        [-0.35,0],
+        [0,0],
+        [0.15,-0.6],
+        [-0.3,-0.6],
+        [-0.8,-0.6],
+        [-0.8,0],
+        [-0.8,0.75],
+        [-0.25,0.8],
+        [0.05,0.8],
+        [0.35,0.4],
+        [0.55,0.8],
+        [0.05,0.8],
+        [-0.25,0.8],
+        [0.05,0.8],
+        [0.35,0.4],
+        [0,0],
+        [-0.35,0],
+        [0,0],
+        [0.15,-0.6],
+        [-0.3,-0.6],
+        [-0.8,-0.6],
+        [-0.8,0],
+        [-0.35,0],
+        [0,0],
+        [0.5,0],
+        [0.55,-0.6],
+        [0.15,-0.6],
+        [-0.3,-0.6],
+        [-0.35,0],
+        [-0.8,0],
+        [-0.8,0.75],
+        [-0.25,0.8],
+        [0.05,0.8],
+        [0.35,0.4],
+        [0.55,0.8],
+        [0.05,0.8],
+        [-0.25,0.8],
+        [-0.35,0],
+        [0,0],
+        [0.5,0],
+        [1.05,0.8],
+        [0.55,0.8],
+        [0.05,0.8],
+        [0.35,0.4],
+        [0,0],
+        [0.15,-0.6],
+        [-0.3,-0.6],
+        [-0.8,-0.6],
+        [-0.8,0],
+        [-0.35,0],
+        [0,0],
+        [0.5,0],
+        [0.55,-0.6],
+        [0.15,-0.6],
+        [-0.3,-0.6],
+        [-0.35,0],
+        [-0.8,0],
+        [-0.8,0.75],
+        [-0.25,0.8],
+        [0.05,0.8],
+        [0.35,0.4],
+        [0.55,0.8],
+        [0.05,0.8],
+        [-0.25,0.8],
+        [-0.35,0],
+        [0,0],
+        [0.5,0],
+        [0.55,-0.6],
+        [0.15,-0.6],
+        [-0.3,-0.6],
+        [-0.8,-0.6],
+        [-0.8,0],
+        [-0.8,0.75],
+        [-0.25,0.8],
+        [0.05,0.8],
+        [0.35,0.4],
+        [0,0],
+        [0.15,-0.6],
+        [-0.3,-0.6],
+        [-0.35,0],
+        [0,0],
+        [0.5,0],
+        [1.05,0.8],
+        [0.55,0.8],
+        [0.05,0.8],
+        [-0.25,0.8],
+        [0.05,0.8],
+        [0.35,0.4],
+        [0,0],
+        [0.15,-0.6],
+        [-0.3,-0.6],
+        [-0.8,-0.6],
+        [-0.8,0],
+        [-0.35,0],
+        [0,0],
+        [0.5,0],
+        [0.55,-0.6]
+      ]
+
 
 
 pi=3.1415926535 
@@ -67,7 +152,7 @@ def motor(lx,az):
 def angle_real_cal(orientation_x,orientation_y,orientation_z,orientation_w):
   (r, p, y) = tf.transformations.euler_from_quaternion([orientation_x, orientation_y, orientation_z, orientation_w])
   y_r=y*(180/pi)
-  rospy.loginfo("yaw_real:%f\n",y_r)
+  rospy.loginfo("1111111111111111111111111111111111yaw_real:%f\n",y_r)
   return (r,p,y)
 
 def angle_set_cal(x,y):
@@ -83,13 +168,13 @@ def sqrt2(x,y):
   return line_set1
 
 angle_pid_init=PID_init()
-angle_pid_init.kp=8.0
-angle_pid_init.ki=0.8
-angle_pid_init.kd=40.0
+angle_pid_init.kp=7.0
+angle_pid_init.ki=1.0
+angle_pid_init.kd=38.0
 angle_pid_init.err=0.0
 angle_pid_init.output=0.0
-angle_pid_init.output_minlimit=-2
-angle_pid_init.output_maxlimit=2
+angle_pid_init.output_minlimit=-1
+angle_pid_init.output_maxlimit=1
 angle_pid_init.output_last=0.0
 angle_pid_init.output_llast=0.0
 angle_pid_init.integral=0.0
@@ -115,8 +200,10 @@ def angle_control(yaw_set,yaw_real):
   angle_real_abs=abs(angle_real)
   rospy.loginfo("angle_set:%f",angle_set)
   rospy.loginfo("angle_real:%f",angle_real)
-
-  if(abs(angle_real_abs-angle_set_abs)>3)&(angle_flag==0):
+  # rospy.loginfo("angle_flagangle_flagangle_flag:%f",angle_flag)
+  # rospy.loginfo("angle_set_abs-angle_set_abs:%f",angle_real_abs-angle_set_abs)
+  if(abs(angle_real_abs-angle_set_abs)>2)&(angle_flag==0):
+  #if((angle_set-angle_real)>5)&(angle_flag==0):
     out=angle_pid(angle_set,angle_real)
     rospy.loginfo("angle_out:%f\n",out)
     motor(0,out)
@@ -125,6 +212,7 @@ def angle_control(yaw_set,yaw_real):
   else:
     line_flag=0
     flag_all_2=1
+    rospy.loginfo("333333333333333333333333333333333")
     angle_flag=1
   return angle_flag
 
@@ -149,7 +237,8 @@ def line_pid(line_target_set,line_target_real):
   line_pid_init.output_last=line_pid_init.err
   rospy.loginfo("line_pid_init.output:%f\n",line_pid_init.output)
   #数据归一化
-  line_pid_init.output=Normalization2(line_pid_init.output)+2
+  line_pid_init.output=(Normalization2(line_pid_init.output)+1)*0.1
+  #line_pid_init.output=0.1
   return line_pid_init.output
 
 def line_contorl(line_set1,line_real1):
@@ -198,9 +287,11 @@ def domsg(position_now):
   line_real=sqrt2(point_real_x_err,point_real_y_err)
   #rospy.loginfo("line_real:%f",line_real)
 
-  #100为点的数量
-  if num<100:
+  # rospy.loginfo("last_numlast_numlast_numlast_numlast_num:%f",last_num)
+  # rospy.loginfo("numnumnumnumnum:%f",num)
+  if num<110:
     flag=angle_control(angle_set,yaw_real)
+    rospy.loginfo("numnumnumnumnumnnumnum:%f",num)
     if flag:
       flag_insert=line_contorl(line_set,line_real)
       if flag_insert:
